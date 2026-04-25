@@ -5,6 +5,7 @@ import Dashboard from "./pages/Dashboard.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import SpamDetector from "./pages/SpamDetector.jsx";  
 import Home from "./pages/Home.jsx";   // <-- New Home Page
+import Multilangual from "./pages/Multilangual.jsx"; // 
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/" element={<Home />} />
+      
 
       {/* Protected routes */}
       <Route
@@ -32,6 +34,16 @@ function App() {
           </ProtectedRoute>
         }
       />
+
+      <Route
+        path="/multilangual"
+        element={
+          <ProtectedRoute>
+            <Multilangual />
+          </ProtectedRoute>
+        }
+      />
+
     </Routes>
   );
 }

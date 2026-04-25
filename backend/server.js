@@ -8,7 +8,7 @@ dotenv.config();
 const app = express();
 
 // Middlewares
-app.use(cors({ origin: process.env.CORS_ORIGIN, methods: ["GET","POST","PUT","DELETE"], credentials: false }));
+app.use(cors({ origin: process.env.CORS_ORIGIN, methods: ["GET","POST","PUT","DELETE"], credentials: true }));
 
 app.use(express.json());
 

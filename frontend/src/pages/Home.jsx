@@ -36,6 +36,13 @@ function Home() {
             >
               ✉️ Try Spam Detector
             </Link>
+              <Link
+              to="/dashboard"
+              className="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition"
+            >
+              ✉️ Try Multilingual Support
+            </Link>
+
           </div>
         </div>
 

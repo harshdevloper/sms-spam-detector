@@ -29,6 +29,12 @@ function Dashboard() {
           >
             ✉️ Spam Detector
           </button>
+          <button
+            onClick={() => navigate("/multilangual")}
+            className="w-full text-left p-3 rounded-lg hover:bg-orange-100 transition"
+          >
+            ✉️ Multilingual Support
+          </button>
           <button className="w-full text-left p-3 rounded-lg hover:bg-orange-100 transition">
             ⚙️ Settings
           </button>
