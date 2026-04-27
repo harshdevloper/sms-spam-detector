@@ -2,6 +2,14 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
+      "source": "/api/node/(.*)",
+      "destination": "https://sms-spam-node-api.onrender.com/api/$1"
+    },
+    {
+      "source": "/api/python/(.*)",
+      "destination": "https://sms-spam-python-api.onrender.com/api/$1"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

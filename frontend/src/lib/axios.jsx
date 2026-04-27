@@ -1,12 +1,14 @@
 import axios from "axios";
 
-const nodeApiBaseUrl =
-  import.meta.env.VITE_NODE_API_BASE_URL ||
-  "https://sms-spam-node-api.onrender.com/api";
+const nodeApiBaseUrl = import.meta.env.PROD
+  ? "/api/node"
+  : import.meta.env.VITE_NODE_API_BASE_URL ||
+    "https://sms-spam-node-api.onrender.com/api";
 
-const flaskApiBaseUrl =
-  import.meta.env.VITE_API_BASE_URL ||
-  "https://sms-spam-python-api.onrender.com/api";
+const flaskApiBaseUrl = import.meta.env.PROD
+  ? "/api/python"
+  : import.meta.env.VITE_API_BASE_URL ||
+    "https://sms-spam-python-api.onrender.com/api";
 
 // Node.js backend (Auth, DB, etc.)
 export const nodeAPI = axios.create({
