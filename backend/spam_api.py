@@ -9,12 +9,22 @@ from langdetect import detect, DetectorFactory
 DetectorFactory.seed = 0
 
 app = Flask(__name__)
-CORS(app)
+
+cors_origin = os.getenv("CORS_ORIGIN")
+if cors_origin:
+    CORS(app, resources={r"/*": {"origins": [cors_origin]}}, supports_credentials=True)
+else:
+    CORS(app)
 
 # Load trained pipeline (assumes pipeline: vectorizer + model)
 model_path = os.path.join(os.path.dirname(__file__), "spam_classifier.pkl")
 with open(model_path, "rb") as f:
     model = pickle.load(f)
+
+
+@app.route("/", methods=["GET"])
+def health_check():
+    return jsonify({"status": "ok", "service": "spam-api"}), 200
 
 def safe_detect_language(text):
     """
@@ -104,5 +114,6 @@ def detect_spam():
     return jsonify(result), 200
 
 if __name__ == "__main__":
-    # Port 5001 as before
-    app.run(host="0.0.0.0", port=5001, debug=True)
+    port = int(os.getenv("PORT", "5001"))
+    debug = os.getenv("FLASK_DEBUG", "false").lower() == "true"
+    app.run(host="0.0.0.0", port=port, debug=debug)
