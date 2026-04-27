@@ -1,14 +1,22 @@
 import axios from "axios";
 
+const nodeApiBaseUrl =
+  import.meta.env.VITE_NODE_API_BASE_URL ||
+  "https://sms-spam-node-api.onrender.com/api";
+
+const flaskApiBaseUrl =
+  import.meta.env.VITE_API_BASE_URL ||
+  "https://sms-spam-python-api.onrender.com/api";
+
 // Node.js backend (Auth, DB, etc.)
 export const nodeAPI = axios.create({
-  baseURL: import.meta.env.VITE_NODE_API_BASE_URL,
+  baseURL: nodeApiBaseUrl,
   headers: { "Content-Type": "application/json" },
 });
 
 // Flask backend (Spam Detection)
 export const flaskAPI = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL,
+  baseURL: flaskApiBaseUrl,
   headers: { "Content-Type": "application/json" },
 });
 
