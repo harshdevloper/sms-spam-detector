@@ -10,11 +10,9 @@ DetectorFactory.seed = 0
 
 app = Flask(__name__)
 
-cors_origin = os.getenv("CORS_ORIGIN")
-if cors_origin:
-    CORS(app, resources={r"/*": {"origins": [cors_origin]}}, supports_credentials=True)
-else:
-    CORS(app)
+# Keep Flask CORS simple in production so a bad env value cannot break startup.
+# The frontend sends bearer tokens and JSON bodies, so credentials are not required here.
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Load trained pipeline (assumes pipeline: vectorizer + model)
 model_path = os.path.join(os.path.dirname(__file__), "spam_classifier.pkl")
