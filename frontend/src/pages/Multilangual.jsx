@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { flaskAPI } from "../lib/axios";
 
 const Multilangual = () => {
   const [text, setText] = useState("");
@@ -11,19 +12,19 @@ const Multilangual = () => {
     setResult(null);
 
     try {
-      const response = await fetch("http://localhost:5001/api/spam-detect", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ message: text }),
+      const response = await flaskAPI.post("/spam-detect", {
+        message: text,
       });
 
-      const data = await response.json();
-      setResult(data);
+      setResult(response.data);
     } catch (error) {
       console.error("Error:", error);
-      alert("Something went wrong. Try again!");
+      alert(
+        error.response?.data?.error ||
+          error.response?.data?.details ||
+          error.message ||
+          "Something went wrong. Try again!",
+      );
     } finally {
       setLoading(false);
     }
@@ -59,10 +60,14 @@ const Multilangual = () => {
                 result.prediction === "Spam" ? "text-red-500" : "text-green-500"
               }`}
             >
-              {result.prediction === "Spam" ? "🚨 Spam Message!" : "✅ Not Spam"}
+              {result.prediction === "Spam"
+                ? "🚨 Spam Message!"
+                : "✅ Not Spam"}
             </h3>
             <p className="text-gray-600 mt-2">Language: {result.language}</p>
-            <p className="text-gray-600">Translated: {result.translated_text}</p>
+            <p className="text-gray-600">
+              Translated: {result.translated_text}
+            </p>
             <p className="text-gray-500 text-sm mt-2">
               Confidence: {result.probability}
             </p>

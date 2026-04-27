@@ -19,7 +19,12 @@ const SpamDetector = () => {
       setResult(response.data);
     } catch (err) {
       console.error("API Error:", err);
-      setError("Something went wrong. Please try again.");
+      setError(
+        err.response?.data?.error ||
+          err.response?.data?.details ||
+          err.message ||
+          "Something went wrong. Please try again.",
+      );
     } finally {
       setLoading(false);
     }
@@ -60,7 +65,7 @@ const SpamDetector = () => {
       {result && (
         <div
           className={`mt-6 p-4 rounded-md text-white font-semibold text-center ${
-            result.result === "Spam" ? "bg-red-600" : "bg-green-600"
+            result.prediction === "Spam" ? "bg-red-600" : "bg-green-600"
           }`}
         >
           {result.hinglish}
