@@ -7,20 +7,8 @@ import authRoutes from "./routes/authRoutes.js";
 dotenv.config();
 const app = express();
 
-const allowedOrigins = (process.env.CORS_ORIGIN || "")
-  .replace(/\r?\n/g, ",")
-  .split(",")
-  .map((origin) => origin.trim())
-  .filter(Boolean);
-
 // Middlewares
-app.use(
-  cors({
-    origin: allowedOrigins.length > 0 ? allowedOrigins : false,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: false,
-  }),
-);
+app.use(cors({ methods: ["GET", "POST", "PUT", "DELETE"] }));
 
 app.use(express.json());
 
